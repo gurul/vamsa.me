@@ -1,6 +1,7 @@
 # vamsa.me
-<p align="center">
+
 ![image](https://github.com/gurul/vamsa.me/assets/110717420/4bd84ff4-f6ec-420d-8536-e970aafb59a4)
+<p align="center">
 Preserve the legacy and tales of your family heritage
 </p>
 Vamsa is a comprehensive application designed to document your life and the lives of those who came before you. It provides a user-friendly platform to collect, organize, and share your family history, stories, and lineage. With Vamsa, preserving your family’s legacy has never been easier.
