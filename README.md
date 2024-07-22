@@ -6,6 +6,8 @@ Preserve the legacy and tales of your family heritage
 </p>
 Vamsa is a comprehensive application designed to document your life and the lives of those who came before you. It provides a user-friendly platform to collect, organize, and share your family history, stories, and lineage. With Vamsa, preserving your family’s legacy has never been easier.
 
+Goal: Connect new-generation multicultural families with their heritage and inspires connection
+
 
 Features
 
