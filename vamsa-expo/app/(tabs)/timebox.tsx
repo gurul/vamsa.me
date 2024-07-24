@@ -3,7 +3,7 @@ import { Text, TextInput, View, StyleSheet, Button, Modal, Pressable, Alert } fr
 
 export default function About() {
 
-  const [ text, onChangeText ] = useState('Happy birthday!');
+  const [ text, onChangeText ] = useState('');
   const [ modalVisible, setModalVisible ] = useState(false);
 
   return (
@@ -25,6 +25,7 @@ export default function About() {
               value={text}
               multiline
               numberOfLines={4}
+              placeholder="etc etc etc "
               />
             <Button
               onPress={() => {
@@ -35,12 +36,15 @@ export default function About() {
           </View>
         </View>
       </Modal>
+      <Text style={styles.container}>{text}</Text>
+      <View style={styles.container2}>
       <Button
         onPress={() => {
           setModalVisible(true);
         }}
         title="Create a memory"
       />
+      </View>
     </View>
   );
 }
@@ -51,6 +55,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
+  },
+  container2 :{
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   input: {
     height: 90,
