@@ -1,4 +1,5 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native';
+import { Link } from 'expo-router';
 
 const About = () => {
   const paragraphs = [
@@ -22,6 +23,11 @@ const About = () => {
           {paragraph}
         </Text>
       ))}
+      <Link href="home" asChild>
+        <Pressable>
+          <Text>Login/Sign Up</Text>
+        </Pressable>
+      </Link>
     </ScrollView>
   );
 };
