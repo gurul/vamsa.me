@@ -9,7 +9,7 @@ export default function About() {
   // Example function to fetch timebox data from backend
   const fetchTimeboxData = async () => {
     try {
-      const response = await axios.get('https://your-backend-server/api/timebox');
+      const response = await axios.get('https://vamsa/api/timebox');
       console.log(response.data); // Handle the response data as needed
     } catch (error) {
       console.error(error);
