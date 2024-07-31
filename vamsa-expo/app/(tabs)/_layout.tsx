@@ -1,9 +1,25 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
+import React from 'react';
+import axios from 'axios';
 
-export default function TabLayout() {
+export default function Layout() {
+  // Example function to fetch layout data from backend
+  const fetchLayoutData = async () => {
+    try {
+      const response = await axios.get('https://vamsa/api/layout');
+      console.log(response.data); // Handle the response data as needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLayoutData(); // Fetch data when the component mounts
+  }, []);
+
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+<Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
       <Tabs.Screen
         name="timebox"
         options={{

@@ -2,8 +2,22 @@ import React, { useState } from "react";
 import { Text, View, TextInput, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
 
 export default function About() {
+  const fetchProfileData = async () => {
+    try {
+      const response = await axios.get('https://vamsa/api/profile');
+      console.log(response.data); // Handle the response data as needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfileData(); // Fetch data when the component mounts
+  }, []);
+
   const [editableField, setEditableField] = useState(null);
   const [name, setName] = useState("Jane Doe");
   const [age, setAge] = useState("55");

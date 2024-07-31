@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, Pressable, StyleSheet, TextInput, Alert, Modal, TouchableOpacity } from "react-native";
+import axios from 'axios'; // Import axios for API calls
 
 export default function Index() {
   // Default home screen with the two buttons
@@ -13,14 +14,25 @@ export default function Index() {
   const [notificationVisible, setNotificationVisible] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
+  // Function to fetch data from the backend
+  const fetchDataFromBackend = async () => {
+    try {
+      const response = await axios.get('https://vamsa/api/data'); // Update with your backend endpoint
+      console.log(response.data); // Handle the response data as needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
+    fetchDataFromBackend(); // Fetch data when the component mounts
+  }, []);
 
   // Handle family creation and code generation
   const showNotification = (message: string) => {
     setNotificationMessage(message);
     setNotificationVisible(true);
   };
-  
 
   const handleCreateFamily = () => {
     if (familyName) {
@@ -39,7 +51,6 @@ export default function Index() {
       showNotification("Please fill in all fields.");
     }
   };
-
 
   return (
     <View style={styles.container}>

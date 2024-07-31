@@ -3,8 +3,22 @@ import { useState } from "react";
 import { Text, TextInput, View, StyleSheet, Button, Modal, Pressable, Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DatePickerModal } from 'react-native-paper-dates';
+import axios from 'axios';
 
 export default function About() {
+  // Example function to fetch timebox data from backend
+  const fetchTimeboxData = async () => {
+    try {
+      const response = await axios.get('https://your-backend-server/api/timebox');
+      console.log(response.data); // Handle the response data as needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTimeboxData(); // Fetch data when the component mounts
+  }, []);
 
   const [ text, onChangeText ] = useState('');
   // const [ date, setDate ] = useState(new Date());
