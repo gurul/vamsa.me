@@ -15,6 +15,7 @@ export default function Index() {
   const [newMemberInfo, setNewMemberInfo] = useState({ name: '', birthday: '', files: '' });
   const [familyMembers, setFamilyMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
+  const [familyMemberModalVisible, setFamilyMemberModalVisible] = useState(false);
 
   const showNotification = (message) => {
     setNotificationMessage(message);
@@ -51,7 +52,7 @@ export default function Index() {
 
   const handleMemberPress = (member) => {
     setSelectedMember(member);
-    setInfoModalVisible(true);
+    setFamilyMemberModalVisible(true);
   };
 
   return (
@@ -114,17 +115,6 @@ export default function Index() {
           </Pressable>
         </View>
       )}
-      {view === 'personalInfo' && (
-        <View style={styles.joinBox}>
-          <TextInput 
-            style={styles.input} 
-            placeholder="Enter invite code..." 
-          />
-          <Pressable style={styles.button} onPress={() => {/* Handle join code submission */}}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </Pressable>
-        </View>
-      )}
       <Modal
         animationType="slide"
         transparent={true}
@@ -170,7 +160,6 @@ export default function Index() {
           >
             <Text style={styles.circleText}>{personalInfo.name.charAt(0)}</Text>
           </TouchableOpacity>
-          
         </View>
       )}
       <Modal
@@ -260,8 +249,8 @@ export default function Index() {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={infoModalVisible}
-          onRequestClose={() => setInfoModalVisible(false)}
+          visible={familyMemberModalVisible}
+          onRequestClose={() => setFamilyMemberModalVisible(false)}
         >
           <View style={styles.infoModalContainer}>
             <View style={styles.infoModalContent}>
@@ -270,7 +259,7 @@ export default function Index() {
               <Text style={styles.modalText}>Files: {selectedMember.files}</Text>
               <Pressable
                 style={styles.closeButton}
-                onPress={() => setInfoModalVisible(false)}
+                onPress={() => setFamilyMemberModalVisible(false)}
               >
                 <Text style={styles.buttonText}>Close</Text>
               </Pressable>
