@@ -1,8 +1,8 @@
 # vamsa.me
 
 ![image](https://github.com/gurul/vamsa.me/assets/110717420/4bd84ff4-f6ec-420d-8536-e970aafb59a4)
-<p align="center">
-</p>
+
+
 Vamsa is a novel application designed to connect new-generation multicultural families with their heritage, fostering a profound sense of connection and belonging. Its intuitive interface allows users to create and visualize family trees effortlessly, making it easy to document and organize lineage. Vamsa also features a comprehensive story archive for preserving personal anecdotes and significant life events, enriched by the ability to upload photos, documents, and memorabilia.
 
 Vamsa’s unique time-lock feature allows family members to share messages and memories for future generations, enhancing intergenerational communication and preserving cultural heritage. This digital time capsule can be programmed to unlock on specific dates or occasions, such as a grandfather recording a message for his grandson’s 30th birthday. These heartfelt messages and cherished memories provide a lasting legacy, allowing future generations to receive love, wisdom, and advice from their ancestors at meaningful moments in their lives.
