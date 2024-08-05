@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Text, TextInput, View, StyleSheet, Button, Modal, Pressable, Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,7 +7,6 @@ import { DatePickerModal } from 'react-native-paper-dates';
 export default function About() {
 
   const [ text, onChangeText ] = useState('');
-  // const [ date, setDate ] = useState(new Date());
   const [ date, setDate ] = useState(undefined);
   const [ open, setOpen ] = useState(false);
   const [ modalVisible, setModalVisible ] = useState(false);
@@ -15,12 +14,17 @@ export default function About() {
   const [ storedDate, setStoredDate ] = useState(null);
   const [ displayMemory, setDisplayMemory ] = useState('');
 
+  useEffect(() => {
+    checkMemory();
+  }, []);
+
   const handleAddMemory = async () => {
     try {
       await AsyncStorage.setItem('memory', text);
       await AsyncStorage.setItem('revealDate', date.toString());
-      setDisplayMemory(text);
+      // setDisplayMemory(text);
       setModalVisible(false);
+      checkMemory();
     } catch (error) {
       console.error(error);
     }
