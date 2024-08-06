@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DatePickerModal } from 'react-native-paper-dates';
 
 export default function About() {
+<<<<<<< Updated upstream
 
   const [ text, onChangeText ] = useState('');
   const [ date, setDate ] = useState(undefined);
@@ -13,6 +14,34 @@ export default function About() {
   const [ storedMemory, setStoredMemory ] = useState(null);
   const [ storedDate, setStoredDate ] = useState(null);
   const [ displayMemory, setDisplayMemory ] = useState('');
+=======
+
+  const [ text, onChangeText ] = useState('');
+  const [ date, setDate ] = useState(undefined);
+  const [ open, setOpen ] = useState(false);
+  const [ modalVisible, setModalVisible ] = useState(false);
+  const [ storedMemory, setStoredMemory ] = useState(null);
+  const [ storedDate, setStoredDate ] = useState(null);
+  const [ displayMemory, setDisplayMemory ] = useState('');
+
+  // Example function to fetch timebox data from backend
+  const fetchTimeboxData = async () => {
+    try {
+      const response = await axios.get('https://vamsa/api/timebox');
+      console.log(response.data); // Handle the response data as needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTimeboxData(); // Fetch data when the component mounts
+  }, []);
+
+  useEffect(() => {
+    checkMemory();
+  }, []);
+>>>>>>> Stashed changes
 
   useEffect(() => {
     checkMemory();
