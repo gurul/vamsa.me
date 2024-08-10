@@ -1,25 +1,9 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { Text, View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 export default function About() {
-<<<<<<< Updated upstream
-=======
-  const fetchProfileData = async () => {
-    try {
-      const response = await axios.get('https://vamsa/api/profile');
-      console.log(response.data); // Handle the response data as needed
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  /*useEffect(() => {
-    fetchProfileData(); // Fetch data when the component mounts
-  }, []);*/
-
->>>>>>> Stashed changes
   const [editableField, setEditableField] = useState(null);
   const [name, setName] = useState("Jane Doe");
   const [age, setAge] = useState("55");
@@ -149,7 +133,9 @@ export default function About() {
           <Ionicons name="create-outline" size={24} color="black" onPress={() => handleEdit('relationships')} />
         </View>
 
-        <Button title="Submit" onPress={handleSubmit} />
+        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -161,6 +147,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // Arrange children in a row
     alignItems: 'flex-start', // Align children at the top
     padding: 20, // Add some padding if needed
+    backgroundColor: '#FBFAFA'
+  },
+  button: {
+    backgroundColor: '#4CAF50',
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    width: 200,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
   },
   image: {
     width: 100, // Adjust the width as needed

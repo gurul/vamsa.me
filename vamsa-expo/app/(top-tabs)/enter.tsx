@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Pressable, Modal, TextInput } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Pressable, Modal, TextInput, Image } from 'react-native';
 import { useRouter } from 'expo-router';
+import * as Font from 'expo-font';
 
 const Enter = () => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
@@ -10,6 +11,7 @@ const Enter = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [birthday, setBirthday] = useState('');
   const router = useRouter();
 
@@ -33,43 +35,27 @@ const Enter = () => {
     router.push('home');
   };
 
-  const paragraphs = [
-    "Vamsa's goal is to foster connection and community by connecting families even from miles apart.",
-    "Create your family tree: Create your very own tree for your family and see your heritage mapped out across generations.",
-    "Add profiles: Picturize your family for yourself and future generations to see, remember, and connect with.",
-    "Join Vamsa+: Our premium subscription allows you to dive deep into the history of your family and connect with members past using our very own AI Chatbot.",
-  ];
-
-/*export default function TabOneScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login / Sign Up</Text>
-    </View>
-  );
-}*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Welcome to Vamsa</Text>
-      {paragraphs.map((paragraph, index) => (
-        <Text 
-          key={index} 
-          style={styles.content}
-        >
-          {paragraph}
-        </Text>
-      ))}
-      <Pressable style={styles.button} onPress={() => setLoginModalVisible(true)}>
-        <Text style={styles.buttonText}>Login</Text>
-      </Pressable>
-      <Pressable style={styles.button} onPress={() => setSignUpModalVisible(true)}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </Pressable>
-      */
+      <View>
+      <Image
+        source={require("./images/wood.jpg")} // Replace with your image URL or local path
+        style={styles.image}
+      />
+      </View>
+      <View style={styles.rightContainer}>
+        <Text style={styles.title}>Welcome to Vamsa</Text>
+        <View style={styles.imageContainer}>
+          <Pressable style={styles.button} onPress={() => setLoginModalVisible(true)}>
+            <Text style={styles.buttonText}>Login</Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={() => setSignUpModalVisible(true)}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </Pressable>
+        </View>
+      </View>
 
       {/* Login Modal */}
-
-      /*
 
       <Modal
         animationType="slide"
@@ -89,7 +75,8 @@ const Enter = () => {
             />
             <TextInput 
               style={styles.input} 
-              placeholder="Username" 
+              placeholder="Password"
+              secureTextEntry={!isPasswordVisible}
             />
             <View style={styles.modalButtons}>
               <Pressable
@@ -110,7 +97,7 @@ const Enter = () => {
       </Modal>
 
       {/* Sign Up Modal */}
-      /*
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -181,26 +168,38 @@ const Enter = () => {
 };
 
 const styles = StyleSheet.create({
-  /*container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },*/
-  /*title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },*/
   container: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#F5F5DC', // Light beige background
+    backgroundColor: '#FBFAFA', // Light beige background
+    flexDirection: 'row',
+  },
+  rightContainer: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  image: {
+    flex: 1,
+    width: 900,
+    height: 900,
+    resizeMode: 'cover',
+  },
+  imageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '40%',
+    paddingHorizontal: 20,
   },
   title: {
-    fontSize: 24,
+    flex: 1,
+    fontSize: 45,
     fontWeight: '700', // Bold weight for title
-    color: '#6B4226', // Brown color for title
+    //color: '#6B4226', // Brown color for title
+    color: '#004d00',
     marginBottom: 16,
     marginTop: 40, // Move title down from the top a bit
     textAlign: 'center',

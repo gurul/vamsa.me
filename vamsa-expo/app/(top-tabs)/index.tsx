@@ -1,86 +1,117 @@
 import React, { useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, Animated } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Animated, ImageBackground } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+// Create an animated version of ImageBackground
+const AnimatedImageBackground = Animated.createAnimatedComponent(ImageBackground);
 
 export default function TabOneScreen() {
 
-  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial opacity value
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial opacity value for content
+  const bannerFadeAnim = useRef(new Animated.Value(0)).current; // Initial opacity value for banner
 
   useEffect(() => {
-    // Start the fade-in animation
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 2000, // Duration of the animation in milliseconds
-      useNativeDriver: true, // Use native driver for performance
-    }).start();
-  }, [fadeAnim]);
+    // Start the fade-in animation for the banner and content
+    Animated.parallel([
+      Animated.timing(bannerFadeAnim, {
+        toValue: 1,
+        duration: 2000, // Duration of the animation in milliseconds
+        useNativeDriver: true, // Use native driver for performance
+      }),
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 2000, // Duration of the animation in milliseconds
+        useNativeDriver: true, // Use native driver for performance
+      })
+    ]).start();
+  }, [fadeAnim, bannerFadeAnim]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.imageContainer}>
-        {/* Placeholder for a large hero image */}
-        <Animated.Image
-          source={require("./images/family.png")}
-          style={[styles.heroImage, { opacity: fadeAnim }]}
-        />
-      </View>
-      <Text style={styles.introduction}>
-        Vamsa's goal is to foster connection and community by connecting families even from miles apart.
-      </Text>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Create your family tree</Text>
-        <Text style={styles.sectionText}>
-          Create your very own tree for your family and see your heritage mapped out across generations.
-        </Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Add profiles</Text>
-        <Text style={styles.sectionText}>
-          Picturize your family for yourself and future generations to see, remember, and connect with.
-        </Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Join Vamsa+</Text>
-        <Text style={styles.sectionText}>
-          Our premium subscription allows you to dive deep into the history of your family and connect with members past using our very own AI Chatbot.
-        </Text>
+    <ScrollView style={styles.scrollView}>
+      {/* Banner Image */}
+      <AnimatedImageBackground
+        source={require("./images/leaves.jpg")} // Replace with your banner image path
+        style={[styles.banner, { opacity: bannerFadeAnim }]} // Apply fade-in effect to banner
+      >
+        <View style={[styles.bannerOverlay, { opacity: 1 }]} /> {/* Semi-transparent overlay */}
+        <Text style={styles.bannerText}>Vamsa</Text>
+      </AnimatedImageBackground>
+
+      <Animated.Text style={[styles.introduction, { opacity: fadeAnim }]}>
+        Preserve Your Legacy.  Unite Generations.
+      </Animated.Text>
+
+      <View style={styles.iconContainer}>
+        <View style={styles.iconWrapper}>
+          <Image source={require("./images/1.png")} style={styles.icon} />
+          <Text style={styles.iconText}>Stay Connected</Text>
+          <Text>
+
+          </Text>
+        </View>
+        <View style={styles.iconWrapper}>
+          <Image source={require("./images/2.png")} style={styles.icon} />
+          <Text style={styles.iconText}>Cherish Memories</Text>
+        </View>
+        <View style={styles.iconWrapper}>
+          <Image source={require("./images/3.png")} style={styles.icon} />
+          <Text style={styles.iconText}>Secured Data</Text>
+        </View>
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    padding: 20,
-    backgroundColor: '#f5f5f5', // Light background color
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#FBFAFA', // Light background color
   },
-  imageContainer: {
-    marginBottom: 20,
-  },
-  heroImage: {
+  banner: {
     width: '100%',
-    height: 300, // Adjust the height as needed
-    borderRadius: 10,
-    resizeMode: 'contain', // Ensure the image fits within the bounds
+    height: 400, // Adjust the height of the banner as needed
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden', // Ensure the banner image does not overflow
   },
-  introduction: {
-    fontSize: 18,
+  bannerOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+  },
+  bannerText: {
+    color: '#FFF', // White text color for contrast
+    fontSize: 175,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 20,
+    zIndex: 1, // Ensure text is above the overlay
+  },
+  introduction: {
+    fontSize: 34,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 90,
+    marginTop: 40,
     color: '#333', // Dark text color for readability
   },
-  section: {
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around', // Spread out the icons
+    alignItems: 'center',
+    paddingHorizontal: 10,
     marginBottom: 20,
   },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#004d00', // Dark green text color
+  iconWrapper: {
+    alignItems: 'center',
+    marginHorizontal: 20, // Increase margin to spread out the icons
   },
-  sectionText: {
-    fontSize: 14,
-    color: '#666', // Grey text color for secondary text
+  icon: {
+    width: 120, // Adjust icon size as needed
+    height: 120, // Adjust icon size as needed
+    marginBottom: 20,
+  },
+  iconText: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: '#004d00', // Match your theme color
   },
 });

@@ -1,47 +1,18 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Text, TextInput, View, StyleSheet, Button, Modal, Pressable, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, TextInput, View, StyleSheet, Modal, Pressable, Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DatePickerModal } from 'react-native-paper-dates';
+import { BlurView } from 'expo-blur';
 
 export default function About() {
-<<<<<<< Updated upstream
 
-  const [ text, onChangeText ] = useState('');
-  const [ date, setDate ] = useState(undefined);
-  const [ open, setOpen ] = useState(false);
-  const [ modalVisible, setModalVisible ] = useState(false);
-  const [ storedMemory, setStoredMemory ] = useState(null);
-  const [ storedDate, setStoredDate ] = useState(null);
-  const [ displayMemory, setDisplayMemory ] = useState('');
-=======
-
-  const [ text, onChangeText ] = useState('');
-  const [ date, setDate ] = useState(undefined);
-  const [ open, setOpen ] = useState(false);
-  const [ modalVisible, setModalVisible ] = useState(false);
-  const [ storedMemory, setStoredMemory ] = useState(null);
-  const [ storedDate, setStoredDate ] = useState(null);
-  const [ displayMemory, setDisplayMemory ] = useState('');
-
-  // Example function to fetch timebox data from backend
-  const fetchTimeboxData = async () => {
-    try {
-      const response = await axios.get('https://vamsa/api/timebox');
-      console.log(response.data); // Handle the response data as needed
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTimeboxData(); // Fetch data when the component mounts
-  }, []);
-
-  useEffect(() => {
-    checkMemory();
-  }, []);
->>>>>>> Stashed changes
+  const [text, onChangeText] = useState('');
+  const [date, setDate] = useState(undefined);
+  const [open, setOpen] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [storedMemory, setStoredMemory] = useState(null);
+  const [storedDate, setStoredDate] = useState(null);
+  const [isMemoryAvailable, setIsMemoryAvailable] = useState(false);
 
   useEffect(() => {
     checkMemory();
@@ -51,7 +22,6 @@ export default function About() {
     try {
       await AsyncStorage.setItem('memory', text);
       await AsyncStorage.setItem('revealDate', date.toString());
-      // setDisplayMemory(text);
       setModalVisible(false);
       checkMemory();
     } catch (error) {
@@ -65,10 +35,13 @@ export default function About() {
       const savedDate = await AsyncStorage.getItem('revealDate');
       if (savedMemory && savedDate) {
         const revealDate = new Date(savedDate);
+        setStoredDate(revealDate);
         if (new Date() >= revealDate) {
           setStoredMemory(savedMemory);
+          setIsMemoryAvailable(true);
         } else {
-          alert('Memory not yet available!');
+          setStoredMemory(savedMemory);
+          setIsMemoryAvailable(false);
         }
       }
     } catch (error) {
@@ -98,9 +71,9 @@ export default function About() {
           Alert.alert('Modal closed');
           setModalVisible(!modalVisible);
         }}>
-        <View style={styles.container}>
+        <View style={styles.modalContainer}>
           <View style={styles.modalView}>
-            <Text>Type your message!</Text>
+            <Text style={styles.modalTitle}>Type your memory!</Text>
             <TextInput
               style={styles.input}
               onChangeText={onChangeText}
@@ -111,12 +84,10 @@ export default function About() {
             />
 
             <Pressable
-              style={styles.buttonView}
-              onPress={() => {
-                setOpen(true);
-              }}
+              style={styles.button}
+              onPress={() => setOpen(true)}
               >
-              <Text style={styles.font}>Select Date</Text>
+              <Text style={styles.buttonText}>Select Date</Text>
             </Pressable>
             <DatePickerModal
               locale="en"
@@ -128,37 +99,42 @@ export default function About() {
             />
 
             <Pressable
-              style={styles.buttonView}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
+              style={styles.button}
+              onPress={handleAddMemory}
               >
-              <Text style={styles.font}>Submit memory</Text>
+              <Text style={styles.buttonText}>Submit Memory</Text>
             </Pressable>
 
             <Pressable
-              style={styles.buttonView}
-              onPress={() => {
-                  setModalVisible(false)
-                }}
+              style={styles.cancelButton}
+              onPress={() => setModalVisible(false)}
               >
-              <Text style={styles.font}>Cancel</Text>
+              <Text style={styles.buttonText}>Cancel</Text>
             </Pressable>
-            
           </View>
         </View>
       </Modal>
-      <Text style={styles.container}>{text}</Text>
-      <View style={styles.container2}>
-      <Pressable
-        style={styles.buttonView}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-        >
-        <Text style={styles.font}>Create a new memory :)</Text>
-      </Pressable>
+
+      <View style={styles.memoryContainer}>
+        {storedMemory ? (
+          isMemoryAvailable ? (
+            <Text style={styles.memoryText}>{storedMemory}</Text>
+          ) : (
+            <BlurView intensity={100} style={styles.blurredMemoryView}>
+              <Text style={styles.memoryText}>Memory will be revealed on: {storedDate?.toLocaleDateString()}</Text>
+            </BlurView>
+          )
+        ) : (
+          <Text style={styles.noMemoryText}>No memory saved yet. Create one now!</Text>
+        )}
       </View>
+
+      <Pressable
+        style={styles.createButton}
+        onPress={() => setModalVisible(true)}
+        >
+        <Text style={styles.buttonText}>Create a New Memory :)</Text>
+      </Pressable>
     </View>
   );
 }
@@ -168,42 +144,100 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    backgroundColor: '#FBFAFA',
   },
-  container2 :{
-    flex: 2,
+  memoryContainer: {
+    marginBottom: 30,
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  memoryText: {
+    fontSize: 18,
+    color: '#333',
+    textAlign: 'center',
+  },
+  blurredMemoryView: {
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
-  input: {
-    height: 90,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+  revealDateText: {
+    fontSize: 16,
+    color: '#999',
+    fontStyle: 'italic',
+    marginTop: 10,
+  },
+  noMemoryText: {
+    fontSize: 18,
+    color: '#aaa',
+  },
+  createButton: {
+    backgroundColor: '#4CAF50',
+    padding: 15,
+    margin: 20,
+    borderRadius: 5,
+    width: 250,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalView: {
-    margin: 20,
     backgroundColor: 'white',
-    borderRadius: 30,
+    borderRadius: 20,
     padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
   },
-  buttonView: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    backgroundColor: '#023020',
-    margin: 3,
+  modalTitle: {
+    fontSize: 18,
+    marginBottom: 15,
   },
-  font: {
-    color: 'white',
+  input: {
+    height: 100,
+    width: 250,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    textAlignVertical: 'top',
+  },
+  button: {
+    backgroundColor: '#4CAF50',
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    width: 200,
+    alignItems: 'center',
+  },
+  cancelButton: {
+    backgroundColor: '#f44336',
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    width: 200,
+    alignItems: 'center',
   },
 });

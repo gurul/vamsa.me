@@ -1,19 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function FeaturesPage() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Features Comparison</Text>
+      <Text style={styles.title}>
+        Uncover Your Legacy.{'\n'}
+        <Text style={styles.subtitle}>Go Premium and bring your family tree to life with limitless features.</Text>
+      </Text>
 
       <View style={styles.table}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Feature</Text>
+          <Text style={styles.headerText}>What you'll get</Text>
           <View style={styles.column}>
-            <Text style={styles.headerText}>Free Plan</Text>
+            <Text style={styles.headerText}>Vamsa</Text>
           </View>
           <View style={styles.column}>
-            <Text style={styles.headerText}>Paid Plan</Text>
+            <Text style={styles.headerText}>Vamsa+ ($119)</Text>
           </View>
         </View>
 
@@ -21,10 +25,18 @@ export default function FeaturesPage() {
           <View key={index} style={styles.row}>
             <Text style={styles.featureTitle}>{feature.title}</Text>
             <View style={styles.column}>
-              <Text style={styles.checkmark}>{feature.free ? '✔' : ''}</Text>
+              {feature.free ? (
+                <Icon name="check-circle" style={styles.icon} />
+              ) : (
+                <Icon name="minus" style={styles.icon} />
+              )}
             </View>
             <View style={styles.column}>
-              <Text style={styles.checkmark}>{feature.paid ? '✔' : ''}</Text>
+              {feature.paid ? (
+                <Icon name="check-circle" style={styles.icon} />
+              ) : (
+                <Icon name="minus" style={styles.icon} />
+              )}
             </View>
           </View>
         ))}
@@ -52,15 +64,22 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#FBFAFA',
+    alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 28, // Increased font size for the main title
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: 'center',
   },
+  subtitle: {
+    fontSize: 20, // Slightly smaller font size for the subtitle
+    fontWeight: 'normal',
+  },
   table: {
+    width: '90%',
+    maxWidth: 600,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
@@ -93,7 +112,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  checkmark: {
-    fontSize: 18,
+  icon: {
+    fontSize: 20, // Increased the font size for bigger icons
+    color: '#000',
   },
 });

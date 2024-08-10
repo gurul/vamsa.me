@@ -7,8 +7,11 @@ const { width } = Dimensions.get('window');
 export default function AboutScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>Vamsa</Text>
+      </View>
+      
       <View style={styles.section}>
-        <Text style={styles.header}>Our Inspiration</Text>
         <Text style={styles.paragraph}>
           During a meaningful conversation with one of our grandfathers, we learned about the Vamsa, a familial book cherished across generations. This book holds the stories, traditions, and records of an entire lineage, preserving the essence of family heritage. Inspired by this tradition, we created our own version of the Vamsa – a digital platform designed to help you cherish memories and stay connected to your roots, no matter where you are.
         </Text>
@@ -21,38 +24,32 @@ export default function AboutScreen() {
         </Text>
       </View>
 
-      <View style={styles.sectionContainer}>
-        <View style={styles.textContainer}>
-          <Text style={styles.header}>Meet the Team</Text>
-          <Text style={styles.paragraph}>
-            We are a dedicated team of seven university students who have spent most of our lives here, deeply understanding the challenges of staying connected to distant family members and our heritage.
-          </Text>
-          <View style={styles.teamList}>
-            <Text style={styles.teamMember}>- Srishti</Text>
-            <Text style={styles.teamMember}>- Agastya</Text>
-            <Text style={styles.teamMember}>- Guru</Text>
-            <Text style={styles.teamMember}>- Rithvik</Text>
-            <Text style={styles.teamMember}>- Jaysheel</Text>
-            <Text style={styles.teamMember}>- Saharsh</Text>
-            <Text style={styles.teamMember}>- Keshav</Text>
-          </View>
-          <Text style={styles.paragraph}>
-            Having experienced these challenges firsthand, we developed Vamsa to bridge the gap between generations and keep our heritage alive.
-          </Text>
-        </View>
+      <View style={styles.section}>
+        <Text style={styles.paragraph}>
+          We are a dedicated team of seven university students who have spent most of our lives here, deeply understanding the challenges of staying connected to distant family members and our heritage. Having experienced these challenges firsthand, we developed Vamsa to bridge the gap between generations and keep our heritage alive.
+        </Text>
+      </View>
 
-        <View style={styles.slideshowContainer}>
-          <Swiper
-            style={styles.swiper}
-            showsPagination={false} // Hide pagination dots
-            autoplay={true} // Auto-play slides
-            autoplayTimeout={3} // Time between slides
-          >
-            <Image source={{ uri: 'https://via.placeholder.com/300x200' }} style={styles.slideshowImage} />
-            <Image source={{ uri: 'https://via.placeholder.com/300x200' }} style={styles.slideshowImage} />
-            <Image source={{ uri: 'https://via.placeholder.com/300x200' }} style={styles.slideshowImage} />
-          </Swiper>
-        </View>
+      <View style={styles.slideshowContainer}>
+        <Swiper
+          style={styles.swiper}
+          showsPagination={false} // Hide pagination dots
+          autoplay={true} // Auto-play slides
+          autoplayTimeout={5} // Time between slides
+        >
+          <Image source={require("./images/rotate1.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate2.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate3.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate4.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate5.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate6.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate7.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate8.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate9.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate10.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate11.jpeg")} style={styles.slideshowImage} />
+          <Image source={require("./images/rotate12.jpeg")} style={styles.slideshowImage} />
+        </Swiper>
       </View>
     </ScrollView>
   );
@@ -62,43 +59,44 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#FBFAFA',
+  },
+  headerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center', 
   },
   section: {
     marginBottom: 20,
   },
+  title: {
+    fontSize: 45,
+    fontWeight: '700', // Bold weight for title
+    color: '#004d00', // Brown color for title
+    marginBottom: 16,
+    marginTop: 10, // Move title down from the top a bit
+    textAlign: 'center',
+  },
   header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#333',
+    fontSize: 30,
+    fontWeight: '700', // Bold weight for title
+    color: '#004d00', // Brown color for title
+    marginBottom: 16,
+    marginTop: 10, // Move title down from the top a bit
+    textAlign: 'center',
   },
   paragraph: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 20,
+    lineHeight: 20,
     color: '#333',
     marginBottom: 15,
-  },
-  sectionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
-  textContainer: {
-    flex: 1,
-    marginRight: 20,
-  },
-  teamList: {
-    marginBottom: 15,
-  },
-  teamMember: {
-    fontSize: 16,
-    color: '#333',
+    textAlign: 'center'
   },
   slideshowContainer: {
-    flex: 1,
-    width: width * 0.5, // Adjust width as needed
-    height: 200, // Adjust height as needed
+    width: '80%', // Adjust width as needed (e.g., 80% of screen width)
+    height: 500, // Adjust height as needed
+    marginTop: 20,
+    alignSelf: 'center', // Center the slideshow container
   },
   swiper: {
     flex: 1,
@@ -109,3 +107,4 @@ const styles = StyleSheet.create({
     borderRadius: 20, // Optional: Add rounded corners
   },
 });
+

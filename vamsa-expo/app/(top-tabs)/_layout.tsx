@@ -21,16 +21,19 @@ import {
       <MaterialTopTabs
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: '#f0f0f0', // Light grey background
+          backgroundColor: '#9DC183', // Light grey background
           borderTopLeftRadius: 10, // Rounded corners
           borderTopRightRadius: 10, // Rounded corners
+          height: 60,
+          justifyContent: 'center'
         },
         tabBarLabelStyle: {
           color: '#004d00', // Dark green text color
           fontFamily: 'YourCustomFont', // Custom font
+          fontSize: 20,
         },
         tabBarIndicatorStyle: {
-          backgroundColor: 'transparent', // Remove blue underline
+          backgroundColor: 'green', // Remove blue underline
         },
       }}
       >
@@ -40,21 +43,23 @@ import {
                 tabBarIcon: ({ focused }) => 
                     <View style={styles.iconContainer}>
                         <Image
-                        source={require("./images/user.png")}
+                        source={require("./images/whitelogo.png")}
                         style={[styles.icon, focused && styles.iconFocused]}
                         />
                     </View>,
                 tabBarLabel: () => null, // Hide label for this tab
             }}
         />
-        <MaterialTopTabs.Screen name="features" options={{ title: "Features" }} />
+        <MaterialTopTabs.Screen
+          name="features"
+          options={{ title: "Features" }}
+        />
         <MaterialTopTabs.Screen name="impact" options={{ title: "Impact" }} />
         <MaterialTopTabs.Screen name="about" options={{ title: "About" }} />
         <MaterialTopTabs.Screen name="enter" options={{ title: "Get Started" }} />
       </MaterialTopTabs>
     );
   }
-
 
 const styles = StyleSheet.create({
     iconContainer: {
@@ -63,12 +68,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
     icon: {
-        width: 24, // Adjust the size as needed
-        height: 24,
+        width: 80, // Adjust the size as needed
+        height: 80,
     },
     iconFocused: {
-        width: 30, // Adjust the size as needed
-        height: 30,
+        width: 120, // Adjust the size as needed
+        height: 120,
     },
     font: {
         fontSize: 12,
