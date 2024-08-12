@@ -29,6 +29,13 @@ export default function TabLayout() {
         tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
       }}
     />
+      <Tabs.Screen
+      name="familyTree"
+      options={{
+        title: 'Family Tree',
+        tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
+      }}
+    />
     </Tabs>
   );
 }
